@@ -274,7 +274,13 @@ def main():
         repricing=repricing,
         convergence=convergence,
     )
-    (RESULTS / "round_trip.json").write_text(json.dumps(payload, indent=2) + "\n")
+    # A --quick run is a smoke test, not a result.  Writing it to the same
+    # path as the full run silently replaces the numbers the README quotes
+    # with ones from a hundredth of the work -- which is exactly what happened
+    # while verifying the CI smoke tests, leaving the committed JSON
+    # contradicting the committed figures.
+    suffix = "_quick" if args.quick else ""
+    (RESULTS / f"round_trip{suffix}.json").write_text(json.dumps(payload, indent=2) + "\n")
 
     if not args.quick:
         plot(surface, fit_report, repricing, convergence, RESULTS / "round_trip.png")

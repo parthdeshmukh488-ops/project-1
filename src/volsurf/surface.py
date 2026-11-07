@@ -41,7 +41,6 @@ from dataclasses import dataclass
 import numpy as np
 
 from .svi import (
-    SVIParams,
     butterfly_g,
     d2_total_variance_dk2,
     d_total_variance_dk,

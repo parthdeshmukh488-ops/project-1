@@ -2,15 +2,14 @@
 
 import numpy as np
 import pytest
-
 from reference import (
-    EPS,
     exact_conditioning,
     exact_normalized_black,
     requires_mpmath,
     textbook_normalized_black,
     ulp_error,
 )
+
 from volsurf.black import (
     CALL,
     PUT,
@@ -124,9 +123,9 @@ def test_every_greek_against_finite_differences(
     """
 
     def evaluate(**overrides):
-        args = dict(
-            spot=spot, strike=strike, expiry=expiry, vol=vol, rate=rate, carry=carry
-        )
+        args = {
+            "spot": spot, "strike": strike, "expiry": expiry, "vol": vol, "rate": rate, "carry": carry
+        }
         args.update(overrides)
         return float(price(option_type=option_type, **args))
 

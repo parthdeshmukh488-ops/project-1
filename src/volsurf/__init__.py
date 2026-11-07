@@ -42,11 +42,11 @@ __all__ = [
     "HestonParams",
     "LocalVolSurface",
     "SVIParams",
+    "__version__",
     "calibrate_slice",
     "greeks",
     "implied_vol",
     "normalized_black",
     "price",
     "price_european",
-    "__version__",
 ]

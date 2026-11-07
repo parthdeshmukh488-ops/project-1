@@ -32,15 +32,15 @@ import numpy as np
 from scipy.special import erfcx, log_ndtr, ndtr, ndtri
 
 __all__ = [
-    "norm_pdf",
-    "norm_cdf",
-    "norm_logcdf",
-    "norm_ppf",
-    "mills_ratio",
-    "mills_difference",
+    "INV_SQRT_TWO_PI",
     "SQRT_TWO",
     "SQRT_TWO_PI",
-    "INV_SQRT_TWO_PI",
+    "mills_difference",
+    "mills_ratio",
+    "norm_cdf",
+    "norm_logcdf",
+    "norm_pdf",
+    "norm_ppf",
 ]
 
 SQRT_TWO = np.sqrt(2.0)

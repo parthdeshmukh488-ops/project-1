@@ -9,7 +9,7 @@ from volsurf.mc import convergence_study, price_european, simulate_local_vol
 from volsurf.surface import LocalVolSurface
 from volsurf.svi import SVIParams
 
-MARKET = dict(rate=0.025, carry=0.012)
+MARKET = {"rate": 0.025, "carry": 0.012}
 SPOT = 100.0
 
 

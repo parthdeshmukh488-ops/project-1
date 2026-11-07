@@ -39,7 +39,7 @@ import numpy as np
 
 from .black import price as black_price
 
-__all__ = ["MCResult", "simulate_local_vol", "price_european", "convergence_study"]
+__all__ = ["MCResult", "convergence_study", "price_european", "simulate_local_vol"]
 
 
 @dataclass(frozen=True)
@@ -177,7 +177,7 @@ def price_european(
     resulting estimator stays unbiased because the control's mean is known
     exactly rather than simulated.
     """
-    terminal, gbm, n_fallbacks = simulate_local_vol(
+    terminal, gbm, _n_fallbacks = simulate_local_vol(
         surface, spot, expiry, n_paths, n_steps, rate, carry, seed
     )
     discount = np.exp(-float(rate) * float(expiry))

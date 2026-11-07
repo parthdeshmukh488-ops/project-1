@@ -22,4 +22,4 @@ def wing_grid():
 @pytest.fixture
 def market():
     """A plain vanilla market: spot, rate and dividend yield."""
-    return dict(spot=100.0, rate=0.025, carry=0.012)
+    return {"spot": 100.0, "rate": 0.025, "carry": 0.012}

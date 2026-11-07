@@ -178,7 +178,13 @@ def main():
     print(f"worst case as a multiple of the conditioning floor: "
           f"{summary['ours_worst_ratio_to_floor']:.2f}x")
 
-    (RESULTS / "precision.json").write_text(json.dumps(summary, indent=2) + "\n")
+    # A --quick run is a smoke test, not a result.  Writing it to the same
+    # path as the full run silently replaces the numbers the README quotes
+    # with ones from a hundredth of the work -- which is exactly what happened
+    # while verifying the CI smoke tests, leaving the committed JSON
+    # contradicting the committed figures.
+    suffix = "_quick" if args.quick else ""
+    (RESULTS / f"precision{suffix}.json").write_text(json.dumps(summary, indent=2) + "\n")
     if not args.quick:
         plot(rows, RESULTS / "precision.png")
 

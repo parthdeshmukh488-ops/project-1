@@ -50,10 +50,10 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .black import CALL, PUT, _as_sign, forward_price, normalized_black, normalized_vega
+from .black import CALL, _as_sign, forward_price, normalized_black, normalized_vega
 from .normal import SQRT_TWO_PI, norm_ppf
 
-__all__ = ["implied_vol", "implied_vol_normalized", "InversionResult"]
+__all__ = ["InversionResult", "implied_vol", "implied_vol_normalized"]
 
 _MAX_ITERATIONS = 32
 _EPS = np.finfo(float).eps

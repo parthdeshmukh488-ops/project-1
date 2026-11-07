@@ -27,6 +27,7 @@ method, which collapses the problem to two dimensions -- see
 
 from __future__ import annotations
 
+import itertools
 from dataclasses import dataclass
 
 import numpy as np
@@ -36,13 +37,13 @@ from .normal import norm_pdf
 
 __all__ = [
     "SVIParams",
-    "total_variance",
-    "d_total_variance_dk",
-    "d2_total_variance_dk2",
     "butterfly_g",
-    "risk_neutral_density",
     "calibrate_slice",
     "check_calendar_spread",
+    "d2_total_variance_dk2",
+    "d_total_variance_dk",
+    "risk_neutral_density",
+    "total_variance",
 ]
 
 
@@ -303,7 +304,7 @@ def check_calendar_spread(slices, k_grid=None):
         k_grid = np.linspace(-1.5, 1.5, 601)
     k_grid = np.asarray(k_grid, dtype=float)
     worst = np.inf
-    for earlier, later in zip(ordered, ordered[1:]):
+    for earlier, later in itertools.pairwise(ordered):
         gap = total_variance(later, k_grid) - total_variance(earlier, k_grid)
         worst = min(worst, float(gap.min()))
     return worst if np.isfinite(worst) else 0.0

@@ -14,7 +14,7 @@ from volsurf.heston import (
 )
 
 EQUITY = HestonParams(v0=0.045, kappa=1.3, theta=0.05, xi=0.65, rho=-0.72)
-MARKET = dict(spot=100.0, rate=0.025, carry=0.012)
+MARKET = {"spot": 100.0, "rate": 0.025, "carry": 0.012}
 
 
 def test_parameter_validation():
