@@ -157,10 +157,11 @@ def mills_difference(a, c, gap=None):
     analytically.  The two branches agree to ``3e-16`` relative in the overlap,
     which is what the test suite checks.
     """
-    a = np.atleast_1d(np.asarray(a, dtype=float))
-    c = np.atleast_1d(np.asarray(c, dtype=float))
+    a = np.asarray(a, dtype=float)
+    c = np.asarray(c, dtype=float)
     gap = c - a if gap is None else np.asarray(gap, dtype=float)
-    a, c, gap = np.broadcast_arrays(a, c, gap)
+    shape = np.broadcast_shapes(a.shape, c.shape, np.shape(gap))
+    a, c, gap = (np.broadcast_to(v, shape).ravel() for v in (a, c, gap))
 
     out = np.array(mills_ratio(a) - mills_ratio(c), dtype=float, copy=True)
     use_series = a > _ASYMPTOTIC_THRESHOLD
@@ -168,4 +169,4 @@ def mills_difference(a, c, gap=None):
         out[use_series] = _mills_difference_asymptotic(
             a[use_series], c[use_series], gap[use_series]
         )
-    return out
+    return out.reshape(shape)

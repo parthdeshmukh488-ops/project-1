@@ -373,8 +373,13 @@ def greeks(spot, strike, expiry, vol, rate=0.0, carry=0.0, option_type=CALL):
         rho = sign * strike * expiry * discount * nd2
         vanna = -carry_df * pdf_d1 * d2 / vol
         volga = vega * d1 * d2 / vol
+        # charm = d(delta)/dt = -d(delta)/dT, and the bracket comes from
+        #     d(d1)/dT = (r - q) / s - d2 / (2T)
+        # so it carries the *net carry* (r - q), not q alone.  Using q here
+        # gives an error of S gamma (r - 2q), which is small enough to look
+        # plausible and was caught only by differencing delta numerically.
         charm = carry * sign * carry_df * nd1 - carry_df * pdf_d1 * (
-            2.0 * carry * expiry - d2 * s
+            2.0 * expiry * (rate - carry) - d2 * s
         ) / (2.0 * expiry * s)
         speed = -gamma / spot * (1.0 + d1 / s)
         zomma = gamma * (d1 * d2 - 1.0) / vol

@@ -1,0 +1,10 @@
+{
+  "n_points": 1245,
+  "ours_median_ulps": 0.7868056240765933,
+  "ours_p99_ulps": 396.20963291051686,
+  "ours_max_ulps": 909.7863642773892,
+  "ours_worst_ratio_to_floor": 3.312556371311079,
+  "textbook_median_ulps": 18.867436641730333,
+  "textbook_p99_ulps": 16095986.71677212,
+  "textbook_max_ulps": 148765867.84670195
+}

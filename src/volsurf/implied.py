@@ -343,9 +343,15 @@ def implied_vol(
     intrinsic = np.exp(0.5 * x_eff) - np.exp(-0.5 * x_eff)
     time_value = beta - intrinsic
 
-    with np.errstate(divide="ignore", invalid="ignore"):
+    # How many ulps of the quoted price the recovered time value is worth.
+    # Guard the denominator rather than clamping it to `tiny`, which overflows
+    # the ratio for a quote of zero instead of reporting "no information".
+    with np.errstate(divide="ignore", invalid="ignore", over="ignore"):
+        one_ulp = np.abs(beta) * _EPS
         ulps = np.where(
-            itm, time_value / np.maximum(np.abs(beta) * _EPS, np.finfo(float).tiny), np.inf
+            itm & (one_ulp > 0.0),
+            time_value / np.where(one_ulp > 0.0, one_ulp, 1.0),
+            np.where(itm, 0.0, np.inf),
         )
 
     beta_otm = np.where(itm, time_value, beta)
