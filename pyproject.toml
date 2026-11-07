@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "volsurf"
+version = "0.1.0"
+description = "Derivatives pricing and volatility surfaces, built to the precision limit"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["quantitative-finance", "options", "implied-volatility", "svi", "heston", "local-volatility"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "pytest-cov>=4.1"]
+# mpmath supplies the arbitrary-precision reference the accuracy claims are
+# measured against.  Tests that need it skip cleanly when it is absent.
+exact = ["mpmath>=1.3"]
+plot = ["matplotlib>=3.7"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+  "slow: Monte Carlo and calibration runs",
+  "exact: requires mpmath for arbitrary-precision cross-checks",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
