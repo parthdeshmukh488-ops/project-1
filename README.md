@@ -25,7 +25,7 @@ from. Three results are worth stating up front:
   separated and each one driven to the level it should reach.
 
 ```bash
-cd derivatives && pip install -e ".[dev,exact,plot]" && pytest tests/ -q
+pip install -e ".[dev,exact,plot]" && pytest tests/ -q
 ```
 
 104 tests, 99% coverage.
